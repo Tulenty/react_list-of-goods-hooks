@@ -19,26 +19,22 @@ enum SortType {
   Alphabetic = 'alphabetic',
   Length = 'length',
   Reset = 'reset',
-  Reverse = 'reverse'
+  Reverse = 'reverse',
 }
 
 function sortingElement(
   goods: string[],
   sortField: SortType,
-  isReversed: boolean
+  isReversed: boolean,
 ): string[] {
-  let sortedGoods = [...goods]
+  const sortedGoods = [...goods];
 
   switch (sortField) {
     case SortType.Alphabetic:
-      sortedGoods.sort((good1, good2) => (
-        good1.localeCompare(good2)
-      ))
+      sortedGoods.sort((good1, good2) => good1.localeCompare(good2));
       break;
     case SortType.Length:
-        sortedGoods.sort((good1, good2) => (
-          good1.length - good2.length
-        ))
+      sortedGoods.sort((good1, good2) => good1.length - good2.length);
       break;
     case SortType.Reset:
       return goodsFromServer;
@@ -53,15 +49,19 @@ export const App: React.FC = () => {
   const [sortField, setSortField] = useState<SortType | ''>();
   const [isReversed, setisReversed] = useState(false);
 
-  const goods = sortingElement(goodsFromServer, sortField as SortType, isReversed);
+  const goods = sortingElement(
+    goodsFromServer,
+    sortField as SortType,
+    isReversed,
+  );
 
-  const handleSort = (field:SortType) => {
+  const handleSort = (field: SortType) => {
     if (field === SortType.Reverse) {
-      setisReversed(!isReversed)
+      setisReversed(!isReversed);
     } else {
-      setSortField(field)
+      setSortField(field);
     }
-  }
+  };
 
   const handleReset = () => {
     setSortField('');
@@ -95,14 +95,14 @@ export const App: React.FC = () => {
           Reverse
         </button>
         {(sortField || isReversed) && (
-        <button
-          type="button"
-          className="button is-danger is-light"
-          onClick={handleReset}
-        >
-          Reset
+          <button
+            type="button"
+            className="button is-danger is-light"
+            onClick={handleReset}
+          >
+            Reset
           </button>
-          )}
+        )}
       </div>
 
       <ul>
